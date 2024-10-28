@@ -10,5 +10,5 @@ class IsActiveEmployee(permissions.BasePermission):
         return (
             request.user.is_authenticated
             and request.user.is_active
-            and request.user.is_staff
+            and (request.user.is_staff or request.user.is_superuser)
         )

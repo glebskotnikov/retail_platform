@@ -17,12 +17,12 @@ class RoleSerializer(serializers.ModelSerializer):
 
     def validate(self, attrs):
         supplier = attrs.get("supplier")
-        user_role_type = attrs.get("role_type")
+        role_type = attrs.get("role_type")
 
         if supplier:
-            supplier_role_type = Role.objects.get(user_id=supplier.id).role_type
+            supplier_role_type = supplier.role.role_type
 
-            validate_supplier_role(supplier_role_type, user_role_type)
+            validate_supplier_role(supplier_role_type, role_type)
 
         return attrs
 

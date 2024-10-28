@@ -1,21 +1,18 @@
-from django.urls import path
+from django.urls import include, path
+from rest_framework.routers import DefaultRouter
 
 from users.apps import UsersConfig
 from users.views import (CustomTokenObtainPairView, CustomTokenRefreshView,
-                         PasswordResetConfirmView, PasswordResetView,
-                         RegisterUserView)
+                         UserViewSet)
 
 app_name = UsersConfig.name
 
+router = DefaultRouter()
+router.register(r"users", UserViewSet, basename="users")
+
 urlpatterns = [
     # users
-    path("register/", RegisterUserView.as_view(), name="register"),
-    path("reset_password/", PasswordResetView.as_view(), name="reset_password"),
-    path(
-        "reset_password_confirm/",
-        PasswordResetConfirmView.as_view(),
-        name="reset_password_confirm",
-    ),
+    path("", include(router.urls)),
     # token
     path(
         "login/",

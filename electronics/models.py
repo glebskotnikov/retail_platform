@@ -22,10 +22,11 @@ class Product(models.Model):
 
 class Role(models.Model):
     ROLE_TYPE_CHOICES = [
-        ("Admin", "Admin"),
-        ("Factory", "Factory"),
-        ("RetailChain", "Retail Chain"),
-        ("IndividualEntrepreneur", "Individual Entrepreneur"),
+        ("admin", "Admin"),
+        ("factory", "Factory"),
+        ("retailchain", "Retail Chain"),
+        ("individualentrepreneur", "Individual Entrepreneur"),
+        ("employee", "Employee"),
     ]
 
     user = models.OneToOneField(
@@ -53,9 +54,9 @@ class Role(models.Model):
 
     def get_hierarchy_level(self):
         HIERARCHY_MAPPING = {
-            "Factory": 0,
-            "RetailChain": 1,
-            "IndividualEntrepreneur": 2,
+            "factory": 0,
+            "retailchain": 1,
+            "individualentrepreneur": 2,
         }
         return HIERARCHY_MAPPING.get(self.role_type, -1)
 
